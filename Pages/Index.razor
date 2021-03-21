@@ -1,0 +1,68 @@
+@page "/"
+
+@using Entities
+@using Services
+@inject BogusService BogusService
+
+<h1>New Table Schema</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Field Name</th>
+            <th scope="col">Field Domain</th>
+            <th scope="col">Field Type</th>
+            <th scope="col">Field Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ var rowIndex = 1; }
+        @foreach (var field in fields)
+        {
+            <tr>
+                <th scope="row">@rowIndex</th>
+                <td>@field.Name</td>
+                <td>@field.Domain</td>
+                <td>@field.Type</td>
+                <td>
+                    <button @onclick="@(() => { RemoveField(field); })" type="button" class="btn btn-danger">
+                        <i class="oi oi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+
+            rowIndex += 1;
+        }
+    </tbody>
+</table>
+
+<button @onclick="AddNewField" type="button" class="btn btn-primary btn-lg btn-block">
+    Add new field
+</button>
+
+@code {
+    private IList<Field> fields = new List<Field>()
+    {
+        new Field() { Name="id", Domain="Aramaki", Type="Row Number" },
+        new Field() { Name="first_name", Domain="Name", Type="FirstName" },
+        new Field() { Name="last_name", Domain="Name", Type="LastName" },
+        new Field() { Name="email", Domain="Internet", Type="Email" },
+        new Field() { Name="gender", Domain="Person", Type="Gender" },
+        new Field() { Name="ip_address", Domain="Internet", Type="Ip" },
+    };
+
+    private IEnumerable<string> domains = BogusService.GetDomains();
+
+    private bool isAddingField = false;
+
+    private void AddNewField()
+    {
+        fields.Add(new Field() { Name="New field name", Domain="Aramaki", Type="Row Number" });
+    }
+
+    private void RemoveField(Field field)
+    {
+        fields.Remove(field);
+    }
+}
