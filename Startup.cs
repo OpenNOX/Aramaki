@@ -1,6 +1,8 @@
+using Aramaki.Database;
 using Aramaki.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,6 +22,9 @@ namespace Aramaki
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddDbContext<WebDbContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("WebDbConnection")));
+
             services.AddSingleton<BogusService>();
         }
 

@@ -4,6 +4,7 @@
 
 1. Install Library Manager CLI.
     ```
+    dotnet tool install -g dotnet-ef
     dotnet tool install -g Microsoft.Web.LibraryManager.Cli
     ```
 1. Restore client-side libraries.

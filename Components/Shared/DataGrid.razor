@@ -1,0 +1,27 @@
+<table class="table table-bordered table-dark">
+    <thead>
+        <tr>
+            @if (AllowMultiSelect)
+            {
+                <th scope="col">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="toggleSelectCheckbox" class="form-check-input" />
+                    </div>
+                </th>
+            }
+
+            @foreach (var columnName in ColumnNames)
+            {
+                <th scope="col">@columnName</th>
+            }
+        </tr>
+    </thead>
+</table>
+
+@code {
+    [Parameter]
+    public string[] ColumnNames { get; set; }
+
+    [Parameter]
+    public bool AllowMultiSelect { get; set; }
+}
